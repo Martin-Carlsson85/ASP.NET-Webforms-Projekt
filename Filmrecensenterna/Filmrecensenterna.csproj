@@ -71,6 +71,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\BLL\FilmRecension.cs" />
     <Compile Include="Model\BLL\Medlem.cs" />
     <Compile Include="Model\BLL\Film.cs" />
     <Compile Include="Model\BLL\Recension.cs" />

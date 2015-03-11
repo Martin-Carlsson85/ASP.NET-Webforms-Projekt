@@ -10,10 +10,7 @@
                     <table class="grid">
                         <tr>
                             <th>
-                                Förnamn
-                            </th>
-                            <th>
-                                Efternamn
+                                Namn
                             </th>
                             <th>
                                 Address
@@ -35,10 +32,7 @@
                     <%-- Mall för nya rader. --%>
                     <tr>
                         <td>
-                            <%#: Item.Fnamn %>
-                        </td>
-                        <td>
-                            <%#: Item.Enamn %>
+                            <%#: Item.Namn %>
                         </td>
                         <td>
                             <%#: Item.Adress %>

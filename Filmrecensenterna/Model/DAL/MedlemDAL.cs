@@ -29,8 +29,7 @@ namespace Filmrecensenterna.Model.DAL
                     using (var reader = cmd.ExecuteReader())
                     {
                         
-                        var fnamnIndex = reader.GetOrdinal("Fnamn");
-                        var enamnIndex = reader.GetOrdinal("Enamn");
+                        var namnIndex = reader.GetOrdinal("Namn");
                         var adressIndex = reader.GetOrdinal("Adress");
                         var ortIndex = reader.GetOrdinal("Ort");
                         var postnrIndex = reader.GetOrdinal("Postnr");
@@ -40,8 +39,7 @@ namespace Filmrecensenterna.Model.DAL
                             medlemmar.Add(new Medlem
                             {
                              
-                                Fnamn = reader.GetString(fnamnIndex),
-                                Enamn = reader.GetString(enamnIndex),
+                                Namn = reader.GetString(namnIndex),
                                 Adress = reader.GetString(adressIndex),
                                 Ort = reader.GetString(ortIndex),
                                 Postnr = reader.GetInt32(postnrIndex)
@@ -53,9 +51,9 @@ namespace Filmrecensenterna.Model.DAL
 
                     return medlemmar;
 
-                
-           
             }
+
+
         }
         
     }

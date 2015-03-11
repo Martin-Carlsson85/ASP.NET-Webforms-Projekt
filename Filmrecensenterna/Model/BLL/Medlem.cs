@@ -9,9 +9,7 @@ namespace Filmrecensenterna.Model.BLL
     {
         public int MedlemID { get; set; }
 
-        public string Fnamn { get; set; }
-
-        public string Enamn { get; set; }
+        public string Namn { get; set; }
 
         public string Adress { get; set; }
 
