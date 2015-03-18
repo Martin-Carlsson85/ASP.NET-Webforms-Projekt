@@ -22,6 +22,6 @@ namespace Filmrecensenterna.Model.BLL
         public int BetygID { get; set; }
         public int MedlemID { get; set; }
 
-        public string Recension { get; set; }
+        public string Recensionen { get; set; }
     }
 }

@@ -15,5 +15,6 @@ namespace Filmrecensenterna.Model.BLL
             this.film = film;
             this.recension = recension;
         }
+
     }
 }

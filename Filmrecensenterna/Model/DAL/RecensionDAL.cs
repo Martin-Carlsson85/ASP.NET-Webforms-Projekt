@@ -11,30 +11,30 @@ namespace Filmrecensenterna.Model.DAL
     public class RecensionDAL : DALBase
     {
         //Läsa en post
-        public IEnumerable<FilmRecension> GetMovieRes()
+        public IEnumerable<Recension> GetReview()
         {
             using (var conn = CreateConnection())
             {
-                var recensioner = new List<FilmRecension>();
+                var recensioner = new List<Recension>();
 
-                var cmd = new SqlCommand("appSchema.usp_GetMovies", conn);
+                var cmd = new SqlCommand("appSchema.usp_GetReview", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 conn.Open();
 
                 using (var reader = cmd.ExecuteReader())
                 {
-
                     var filmIndex = reader.GetOrdinal("Film");
                     var artalIndex = reader.GetOrdinal("Årtal");
                     var recensionIndex = reader.GetOrdinal("Recension");
 
                     while (reader.Read())
                     {
-                        recensioner.Add(new FilmRecension(new Film
+                        recensioner.Add(new FilmRecension(
+                        new Film
                         {
                             Filmnamn = reader.GetString(filmIndex),
-                            Årtal = reader.GetInt32(artalIndex)
+                            Årtal = reader.GetInt32(artalIndex),
                         },
                         new Recension
                         {
@@ -44,44 +44,17 @@ namespace Filmrecensenterna.Model.DAL
                 }
 
                 recensioner.TrimExcess();
-
                 return recensioner;
             }
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         //Skapa en post
         /// <summary>
         /// Sätter in en ny post.
         /// </summary>
-        /// <param name="contact">Posten som ska sättas in.</param>
-        //        public void InsertContact(Contact contact)
+        /// <param name="filmRec">Posten som ska sättas in.</param>
+        //        public void InsertContact(Contact filmRec)
         //        {
         //            using (var con = CreateConnection())
         //            {
@@ -89,15 +62,15 @@ namespace Filmrecensenterna.Model.DAL
         //                {
         //                    var cmd = new SqlCommand("Person.uspAddContact", con);
         //                    cmd.CommandType = CommandType.StoredProcedure;
-        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = contact.FirstName;
-        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = contact.LastName;
-        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAddress;
+        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = filmRec.FirstName;
+        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = filmRec.LastName;
+        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = filmRec.EmailAddress;
         //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
 
         //                    con.Open();
         //                    cmd.ExecuteNonQuery();
 
-        //                    contact.ContactId = (int)cmd.Parameters["@ContactID"].Value;
+        //                    filmRec.ContactId = (int)cmd.Parameters["@ContactID"].Value;
         //                }
         //                catch
         //                {
@@ -151,7 +124,7 @@ namespace Filmrecensenterna.Model.DAL
 
         //        //Uppdatera en post
 
-        //        public void UpdateContact(Contact contact)
+        //        public void UpdateContact(Contact filmRec)
         //        {
         //            using (var con = CreateConnection())
         //            {
@@ -159,10 +132,10 @@ namespace Filmrecensenterna.Model.DAL
         //                {
         //                    var cmd = new SqlCommand("Person.uspUpdateContact", con);
         //                    cmd.CommandType = CommandType.StoredProcedure;
-        //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = contact.ContactId;
-        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = contact.FirstName;
-        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = contact.LastName;
-        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAddress;
+        //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = filmRec.ContactId;
+        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = filmRec.FirstName;
+        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = filmRec.LastName;
+        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = filmRec.EmailAddress;
 
         //                    con.Open();
         //                    cmd.ExecuteNonQuery();
