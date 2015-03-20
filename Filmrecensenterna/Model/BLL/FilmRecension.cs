@@ -7,11 +7,13 @@ namespace Filmrecensenterna.Model.BLL
 {
     public class FilmRecension
     {
-        public Film film;
-        public Recension recension;
+        public int RecID { get; set; }
+        public Film film { get; set; }
+        public Recension recension { get; set; }
 
-        public FilmRecension(Film film, Recension recension)
+        public FilmRecension(int RecID, Film film, Recension recension)
         {
+            this.RecID = RecID;
             this.film = film;
             this.recension = recension;
         }

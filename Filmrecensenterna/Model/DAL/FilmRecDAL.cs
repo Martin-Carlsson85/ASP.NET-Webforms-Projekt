@@ -44,32 +44,36 @@ namespace Filmrecensenterna.Model.DAL
             {
                 var recensioner = new List<FilmRecension>();
 
-                var cmd = new SqlCommand("appSchema.usp_GetMovieRes", conn);
+                var cmd = new SqlCommand("appSchema.usp_GetMovieRew", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 conn.Open();
-
                 using (var reader = cmd.ExecuteReader())
                 {
                     var filmIndex = reader.GetOrdinal("Film");
                     var artalIndex = reader.GetOrdinal("Årtal");
-                    var recensionIndex = reader.GetOrdinal("Recension");
+                    var recensionText = reader.GetOrdinal("Recension");
+                    var recensionID = reader.GetOrdinal("RecID");
+                    var filmID = reader.GetOrdinal("FilmID");
+
 
                     while (reader.Read())
                     {
                         recensioner.Add(new FilmRecension(
+                        reader.GetInt32(recensionID),
                         new Film
                         {
+                            FilmID = reader.GetInt32(filmID),
                             Filmnamn = reader.GetString(filmIndex),
                             Årtal = reader.GetInt32(artalIndex),
                         },
                         new Recension
                         {
-                            Recensionen = reader.GetString(recensionIndex)
+                            RecID = reader.GetInt32(recensionID),
+                            Recensionen = reader.GetString(recensionText)
                         }));
                     }
                 }
-
                 recensioner.TrimExcess();
                 return recensioner;
             }

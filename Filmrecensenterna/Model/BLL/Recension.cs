@@ -9,6 +9,7 @@ namespace Filmrecensenterna.Model.BLL
     {
 
         //När jag hämtar
+        public int Årtal { get; set; }
         public int RecID { get; set; }
 
         public string Film { get; set; }

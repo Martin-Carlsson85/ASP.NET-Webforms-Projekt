@@ -11,9 +11,9 @@
     <form id="form1" runat="server">
     <div id="header">
         <h1>Recensionsida</h1>
-        <h2>blkabalabl</h2>
         <asp:HyperLink ID="HyperLink1" runat="server" Text="Medlemmar" NavigateUrl="~/Pages/Shared/Medlem.aspx" />
         <asp:HyperLink ID="HyperLink2" runat="server" Text="Recensioner" NavigateUrl="~/Pages/Shared/Recension.aspx" />
+        <asp:HyperLink ID="HyperLink3" runat="server" Text="Filmer" NavigateUrl="~/Pages/Shared/Film.aspx" />
     </div>
 
         <div id="content">

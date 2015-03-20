@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\Shared\Film.aspx" />
     <Content Include="Pages\Shared\Site.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -81,6 +82,13 @@
     <Compile Include="Model\DAL\MedlemDAL.cs" />
     <Compile Include="Model\DAL\RecensionDAL.cs" />
     <Compile Include="Model\Service.cs" />
+    <Compile Include="Pages\Shared\Film.aspx.cs">
+      <DependentUpon>Film.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shared\Film.aspx.designer.cs">
+      <DependentUpon>Film.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Shared\Recension.aspx.cs">
       <DependentUpon>Recension.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

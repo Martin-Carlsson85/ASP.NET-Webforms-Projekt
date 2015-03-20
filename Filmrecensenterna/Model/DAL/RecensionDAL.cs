@@ -24,22 +24,25 @@ namespace Filmrecensenterna.Model.DAL
 
                 using (var reader = cmd.ExecuteReader())
                 {
+                    var filmIDIndex = reader.GetOrdinal("FilmID");
+                    var recIDIndex = reader.GetOrdinal("RecID");
+                    var medlemIDIndex = reader.GetOrdinal("MedlemID");
+                    var recensionIndex = reader.GetOrdinal("Recension");
                     var filmIndex = reader.GetOrdinal("Film");
                     var artalIndex = reader.GetOrdinal("Årtal");
-                    var recensionIndex = reader.GetOrdinal("Recension");
 
                     while (reader.Read())
                     {
-                        recensioner.Add(new FilmRecension(
-                        new Film
-                        {
-                            Filmnamn = reader.GetString(filmIndex),
-                            Årtal = reader.GetInt32(artalIndex),
-                        },
+                        recensioner.Add(
                         new Recension
                         {
-                            Recensionen = reader.GetString(recensionIndex)
-                        }));
+                            RecID = reader.GetInt32(recIDIndex),
+                            FilmID = reader.GetInt32(filmIDIndex),
+                            MedlemID = reader.GetInt32(medlemIDIndex),
+                            Recensionen = reader.GetString(recensionIndex),
+                            Film = reader.GetString(filmIndex),
+                            Årtal = reader.GetInt32(artalIndex)
+                        });
                     }
                 }
 
@@ -53,8 +56,8 @@ namespace Filmrecensenterna.Model.DAL
         /// <summary>
         /// Sätter in en ny post.
         /// </summary>
-        /// <param name="filmRec">Posten som ska sättas in.</param>
-        //        public void InsertContact(Contact filmRec)
+        /// <param name="toAdd">Posten som ska sättas in.</param>
+        //        public void InsertContact(Contact toAdd)
         //        {
         //            using (var con = CreateConnection())
         //            {
@@ -62,15 +65,15 @@ namespace Filmrecensenterna.Model.DAL
         //                {
         //                    var cmd = new SqlCommand("Person.uspAddContact", con);
         //                    cmd.CommandType = CommandType.StoredProcedure;
-        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = filmRec.FirstName;
-        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = filmRec.LastName;
-        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = filmRec.EmailAddress;
+        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = toAdd.FirstName;
+        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = toAdd.LastName;
+        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = toAdd.EmailAddress;
         //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
 
         //                    con.Open();
         //                    cmd.ExecuteNonQuery();
 
-        //                    filmRec.ContactId = (int)cmd.Parameters["@ContactID"].Value;
+        //                    toAdd.ContactId = (int)cmd.Parameters["@ContactID"].Value;
         //                }
         //                catch
         //                {
@@ -124,7 +127,7 @@ namespace Filmrecensenterna.Model.DAL
 
         //        //Uppdatera en post
 
-        //        public void UpdateContact(Contact filmRec)
+        //        public void UpdateContact(Contact toAdd)
         //        {
         //            using (var con = CreateConnection())
         //            {
@@ -132,10 +135,10 @@ namespace Filmrecensenterna.Model.DAL
         //                {
         //                    var cmd = new SqlCommand("Person.uspUpdateContact", con);
         //                    cmd.CommandType = CommandType.StoredProcedure;
-        //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = filmRec.ContactId;
-        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = filmRec.FirstName;
-        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = filmRec.LastName;
-        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = filmRec.EmailAddress;
+        //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = toAdd.ContactId;
+        //                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = toAdd.FirstName;
+        //                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = toAdd.LastName;
+        //                    cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = toAdd.EmailAddress;
 
         //                    con.Open();
         //                    cmd.ExecuteNonQuery();
@@ -147,28 +150,79 @@ namespace Filmrecensenterna.Model.DAL
         //            }
         //        }
 
-        //        /// <summary>
-        //        /// Radera en post.
-        //        /// </summary>
-        //        /// <param name="contactId">Raderar en post. Det är själva id:et som raderas.</param>
-        //        public void DeleteContact(int contactId)
-        //        {
-        //            using (var con = CreateConnection())
-        //            {
-        //                try
-        //                {
-        //                    var cmd = new SqlCommand("Person.uspRemoveContact", con);
-        //                    cmd.CommandType = CommandType.StoredProcedure;
-        //                    cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = contactId;
+        /// <summary>
+        /// Radera en post.
+        /// </summary>
+        /// <param name="contactId">Raderar en p
+        /// ost. Det är själva id:et som raderas.</param>
+        public void DeleteReview(int recId)
+        {
+            using (var con = CreateConnection())
+            {
+                try
+                {
+                    var cmd = new SqlCommand("appSchema.usp_DeleteReview", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@RecID", SqlDbType.Int, 4).Value = recId;
 
-        //                    con.Open();
-        //                    cmd.ExecuteNonQuery();
-        //                }
-        //                catch
-        //                {
-        //                    throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
-        //                }
-        //            }
-        //        }
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Uppdaterar en post.
+        /// </summary>
+        /// <param name="contact">Posten som ska uppdateras.</param>
+        public void UpdateReview(Recension toEdit)
+        {
+            using (var con = CreateConnection())
+            {
+                try
+                {
+                    var cmd = new SqlCommand("appSchema.usp_UpdateReview", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@RecID", SqlDbType.Int, 4).Value = toEdit.RecID;
+                    cmd.Parameters.Add("@FilmID", SqlDbType.Int, 4).Value = toEdit.FilmID;
+                    cmd.Parameters.Add("@MedlemID", SqlDbType.Int, 4).Value = toEdit.MedlemID;
+                    cmd.Parameters.Add("@Recension", SqlDbType.NVarChar, 150).Value = toEdit.Recensionen;
+                    
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
+                }
+            }
+        }
+
+        public void AddReview(Recension toAdd)
+        {
+            using (var con = CreateConnection())
+            {
+                try
+                {
+                    var cmd = new SqlCommand("appSchema.usp_AddReview", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@RecID", SqlDbType.Int, 4).Value = toAdd.RecID;
+                    cmd.Parameters.Add("@FilmID", SqlDbType.Int, 4).Value = toAdd.FilmID;
+                    cmd.Parameters.Add("@MedlemID", SqlDbType.Int, 4).Value = toAdd.MedlemID;
+                    cmd.Parameters.Add("@Recension", SqlDbType.NVarChar, 150).Value = toAdd.Recensionen;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
+                }
+            }
+        }
     }
 }

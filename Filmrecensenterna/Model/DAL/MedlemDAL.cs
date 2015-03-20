@@ -17,8 +17,6 @@ namespace Filmrecensenterna.Model.DAL
         {
             using (var conn = CreateConnection())
             {
-               
-
                     var medlemmar = new List<Medlem>();
 
                     var cmd = new SqlCommand("appSchema.usp_GetMembers", conn);
@@ -28,7 +26,7 @@ namespace Filmrecensenterna.Model.DAL
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        
+                        var medlemIDIndex = reader.GetOrdinal("MedlemID");
                         var namnIndex = reader.GetOrdinal("Namn");
                         var adressIndex = reader.GetOrdinal("Adress");
                         var ortIndex = reader.GetOrdinal("Ort");
@@ -38,7 +36,7 @@ namespace Filmrecensenterna.Model.DAL
                         {
                             medlemmar.Add(new Medlem
                             {
-                             
+                                MedlemID = reader.GetInt32(medlemIDIndex),
                                 Namn = reader.GetString(namnIndex),
                                 Adress = reader.GetString(adressIndex),
                                 Ort = reader.GetString(ortIndex),
@@ -55,6 +53,44 @@ namespace Filmrecensenterna.Model.DAL
 
 
         }
-        
+
+
+        public Medlem GetMedlem(int id)
+        {
+            using (var conn = CreateConnection())
+            {
+                Medlem medlem = new Medlem();
+
+                var cmd = new SqlCommand("appSchema.usp_GetMembers", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@MedlemID", SqlDbType.Int, 4).Value = id;
+
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+
+                    var namnIndex = reader.GetOrdinal("Namn");
+                    var adressIndex = reader.GetOrdinal("Adress");
+                    var ortIndex = reader.GetOrdinal("Ort");
+                    var postnrIndex = reader.GetOrdinal("Postnr");
+
+                    if (reader.Read())
+                    {
+                        medlem = new Medlem
+                        {
+
+                            Namn = reader.GetString(namnIndex),
+                            Adress = reader.GetString(adressIndex),
+                            Ort = reader.GetString(ortIndex),
+                            Postnr = reader.GetInt32(postnrIndex)
+                        };
+                    }
+                }
+
+                return medlem;
+            }
+        }
     }
  }
