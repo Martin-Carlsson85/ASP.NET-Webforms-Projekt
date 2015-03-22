@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Filmrecensenterna</title>
     
 </head>
 <body>
@@ -15,8 +15,11 @@
         <asp:HyperLink ID="HyperLink2" runat="server" Text="Recensioner" NavigateUrl="~/Pages/Shared/Recension.aspx" />
         <asp:HyperLink ID="HyperLink3" runat="server" Text="Filmer" NavigateUrl="~/Pages/Shared/Film.aspx" />
     </div>
-
+        <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
         <div id="content">
+            
+        Master.FindControl;
+
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>

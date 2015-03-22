@@ -2,6 +2,7 @@
 using Filmrecensenterna.Model.DAL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -44,36 +45,139 @@ namespace Filmrecensenterna.Model
         }
         public void DeleteRecension(Recension toDelete)
         {
-            RecDAL.DeleteReview(toDelete.RecID);
+            var validationContext = new ValidationContext(toDelete);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(toDelete, validationContext, validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
+            if (toDelete.RecID == 0)
+            {
+                RecDAL.DeleteReview(toDelete.RecID);
+            }
+            else
+            {
+                RecDAL.DeleteReview(toDelete.RecID);
+            }
+            //RecDAL.DeleteReview(toDelete.RecID);
         }
 
         public void EditRecension(Recension toEdit)
         {
-            RecDAL.UpdateReview(toEdit);
+            var validationContext = new ValidationContext(toEdit);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(toEdit, validationContext, validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
+            if (toEdit.RecID == 0)
+            {
+                RecDAL.UpdateReview(toEdit);
+            }
+            else
+            {
+                RecDAL.UpdateReview(toEdit);
+            }
+            //RecDAL.UpdateReview(toEdit);
         }
 
         public Medlem GetMedlem(int id)
         {
+
             return MedlemDAL.GetMedlem(id);
         }
 
         public void AddRecension(Recension toAdd)
         {
-            RecDAL.AddReview(toAdd);
+            var validationContext = new ValidationContext(toAdd);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(toAdd, validationContext, validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
+            if (toAdd.RecID == 0)
+            {
+                RecDAL.AddReview(toAdd);
+            }
+            else
+            {
+                RecDAL.AddReview(toAdd);
+            }
+            //RecDAL.AddReview(toAdd);
         }
 
         public void AddFilm(Film toAdd)
         {
-            FilmDAL.AddMovie(toAdd);
+            var validationContext = new ValidationContext(toAdd);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(toAdd, validationContext, validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
+            if (toAdd.FilmID == 0)
+            {
+                FilmDAL.AddMovie(toAdd);
+            }
+            else
+            {
+                FilmDAL.AddMovie(toAdd);
+            }
+            //FilmDAL.AddMovie(toAdd);
         }
 
         public void DeleteFilm(Film toDelete)
         {
-            FilmDAL.DeleteMovie(toDelete.FilmID);
+            var validationContext = new ValidationContext(toDelete);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(toDelete, validationContext, validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
+            if (toDelete.FilmID == 0)
+            {
+                FilmDAL.DeleteMovie(toDelete.FilmID);
+            }
+            else
+            {
+                FilmDAL.DeleteMovie(toDelete.FilmID);
+            }
+            //FilmDAL.DeleteMovie(toDelete.FilmID);
         }
         public void EditFilm(Film toEdit)
         {
-            FilmDAL.UpdateMovie(toEdit);
+            var validationContext = new ValidationContext(toEdit);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(toEdit, validationContext, validationResults))
+            {
+                var ex = new ValidationException("Objektet klarade inte valideringen.");
+                ex.Data.Add("ValidationResults", validationResults);
+                throw ex;
+            }
+
+            if (toEdit.FilmID == 0)
+            {
+                FilmDAL.UpdateMovie(toEdit);
+            }
+            else
+            {
+                FilmDAL.UpdateMovie(toEdit);
+            }
+            //FilmDAL.UpdateMovie(toEdit);
         }
     }
 }

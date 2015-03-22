@@ -24,37 +24,102 @@ namespace Filmrecensenterna.Pages
 
         public IEnumerable<Model.BLL.Recension> Filmrecensionerna_GetData()
         {
-            return Service.GetFilmRecensioner();
+            try
+            {
+                return Service.GetFilmRecensioner();
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                 return null;
+            }
         }
 
         public string GetName(int id)
         {
-            return Service.GetMedlem(id).Namn;
+            try
+            {
+                return Service.GetMedlem(id).Namn;
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                 return null;
+            }
         }
 
         public IEnumerable<Film> FilmDropDownList_GetData()
         {
-            return Service.GetFilms();
+            try
+            {
+                return Service.GetFilms();
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                 return null;
+            }
         }
 
         public IEnumerable<Medlem> PersonDropDownList_GetData()
         {
-            return Service.GetMedlemmar();
+            try
+            {
+                return Service.GetMedlemmar();
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                 return null;
+            }
         }
 
         public void Filmrecensionerna_InsertItem(Model.BLL.Recension toAdd)
         {
-            Service.AddRecension(toAdd);
+            try
+            {
+                Service.AddRecension(toAdd);
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle läggas till.");
+            }
         }
 
         public void Filmrecensionerna_DeleteItem(Model.BLL.Recension toDelete)
         {
-            Service.DeleteRecension(toDelete);
+            try
+            {
+                Service.DeleteRecension(toDelete);
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle tas bort.");
+            }
         }
 
         public void Filmrecensionerna_UpdateItem(Model.BLL.Recension toEdit)
         {
-            Service.EditRecension(toEdit);
+            try
+            {
+                Service.EditRecension(toEdit);
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle uppdateras.");
+            }
+        }
+
+        protected void Filmrecensenterna_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -10,11 +10,11 @@
             UpdateMethod="Filmrecensionerna_UpdateItem"
             DeleteMethod="Filmrecensionerna_DeleteItem"
             InsertItemPosition="FirstItem"
-            DataKeyNames="RecID">
+            DataKeyNames="RecID" OnSelectedIndexChanged="Filmrecensenterna_SelectedIndexChanged">
             
             <LayoutTemplate>
 
-            <table class="rentTableGrid">
+            <table class="Recensioner1">
                 <tr>
                     <th>
                         Film
@@ -48,8 +48,8 @@
                         <%# GetName(Item.MedlemID) %>
                     </td>
                     <td >
-                        <asp:LinkButton runat="server" CommandName="Edit" Text="Edit" CausesValidation="false"/>
-                        <asp:LinkButton runat="server" CommandName="Delete" Text="Delete" CausesValidation="false" OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort filmen?\")", Item.FilmID) %>'/>
+                        <asp:LinkButton runat="server" CommandName="Edit" Text="Ändra" CausesValidation="false"/>
+                        <asp:LinkButton runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false" OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort filmen?\")", Item.FilmID) %>'/>
                    </td>
                     
                 </tr>
@@ -124,8 +124,8 @@
                          SelectedValue='<%# BindItem.MedlemID %>' />
                     </td>
                     <td>
-                       <asp:LinkButton runat="server" CommandName="Update" Text="Save" CausesValidation="true"  ValidationGroup="editDate" />
-                       <asp:LinkButton runat="server" CommandName="Cancel" Text="Cancel" CausesValidation="false"/>
+                       <asp:LinkButton runat="server" CommandName="Update" Text="Spara" CausesValidation="true"  ValidationGroup="editDate" />
+                       <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false"/>
                    </td>
                </tr> 
 

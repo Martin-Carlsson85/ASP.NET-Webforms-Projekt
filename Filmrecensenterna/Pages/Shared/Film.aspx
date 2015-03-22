@@ -10,11 +10,11 @@
             UpdateMethod="Filmrecensionerna_UpdateItem"
             DeleteMethod="Filmrecensionerna_DeleteItem"
             InsertItemPosition="FirstItem"
-            DataKeyNames="FilmID">
+            DataKeyNames="FilmID" OnSelectedIndexChanged="FilmList_SelectedIndexChanged">
             
             <LayoutTemplate>
 
-            <table class="rentTableGrid">
+            <table class="Film1">
                 <tr>
                     <th>
                         Film
@@ -36,8 +36,9 @@
                         <%#: Item.Årtal %>
                     </td>
                     <td >
-                        <asp:LinkButton runat="server" CommandName="Edit" Text="Edit" CausesValidation="false"/>
-                        <asp:LinkButton runat="server" CommandName="Delete" Text="Delete" CausesValidation="false" OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort filmen?\")", Item.FilmID) %>'/>
+                        <asp:Label ID="RightMessage" CssClass="RightMessage" runat="server" />
+                        <asp:LinkButton runat="server" CommandName="Edit" Text="Ändra" CausesValidation="false" /> 
+                        <asp:LinkButton runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false" OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort filmen?\")", Item.FilmID) %>'/>
                    </td>
                     
                 </tr>
@@ -45,7 +46,7 @@
             <EmptyDataTemplate>
                 <tr>
                     <td>
-                        Rent could not be found.
+                       
                     </td>
                 </tr>
             </EmptyDataTemplate>
@@ -62,11 +63,12 @@
                    <td>
                        <asp:TextBox ID="TextBox2" runat="server"
                            TextMode="SingleLine"
+                           MaxLength="4"
                            Text='<%# BindItem.Årtal %>'></asp:TextBox>
                    </td>
 
                     <td>
-                        <asp:LinkButton runat="server" CommandName="Insert" Text="Lägg till recension" CausesValidation="True"/>
+                        <asp:LinkButton runat="server" CommandName="Insert" Text="Lägg till film" CausesValidation="True"/>
                     </td>
                </tr>
            </InsertItemTemplate>
@@ -84,8 +86,8 @@
                            Text='<%# BindItem.Årtal %>'></asp:TextBox>
                    </td>
                     <td>
-                       <asp:LinkButton runat="server" CommandName="Update" Text="Save" CausesValidation="true"  ValidationGroup="editDate" />
-                       <asp:LinkButton runat="server" CommandName="Cancel" Text="Cancel" CausesValidation="false"/>
+                       <asp:LinkButton runat="server" CommandName="Update" Text="Spara" CausesValidation="true"  ValidationGroup="editDate" />
+                       <asp:LinkButton runat="server" CommandName="Cancel" Text="Avbryt" CausesValidation="false"/>
                    </td>
                </tr> 
 

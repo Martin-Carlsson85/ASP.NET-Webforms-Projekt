@@ -28,7 +28,16 @@ namespace Filmrecensenterna.Pages.Shared
     
         public IEnumerable<Medlem> Medlemslist_GetData()
         {
-            return Service.GetMedlemmar();
+            try
+            {
+                return Service.GetMedlemmar();
+            }
+            catch (Exception)
+            {
+                
+                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                 return null;
+            }
         }
     }
 }

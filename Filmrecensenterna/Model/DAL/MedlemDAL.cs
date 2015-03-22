@@ -15,8 +15,10 @@ namespace Filmrecensenterna.Model.DAL
         //Läsa en post
         public IEnumerable<Medlem> GetMedlemmar()
         {
-            using (var conn = CreateConnection())
+            try
             {
+                using (var conn = CreateConnection())
+                {
                     var medlemmar = new List<Medlem>();
 
                     var cmd = new SqlCommand("appSchema.usp_GetMembers", conn);
@@ -41,7 +43,7 @@ namespace Filmrecensenterna.Model.DAL
                                 Adress = reader.GetString(adressIndex),
                                 Ort = reader.GetString(ortIndex),
                                 Postnr = reader.GetInt32(postnrIndex)
-                           });
+                            });
                         }
                     }
 
@@ -49,6 +51,12 @@ namespace Filmrecensenterna.Model.DAL
 
                     return medlemmar;
 
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
             }
 
 
@@ -57,39 +65,47 @@ namespace Filmrecensenterna.Model.DAL
 
         public Medlem GetMedlem(int id)
         {
-            using (var conn = CreateConnection())
+            try
             {
-                Medlem medlem = new Medlem();
-
-                var cmd = new SqlCommand("appSchema.usp_GetMembers", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Add("@MedlemID", SqlDbType.Int, 4).Value = id;
-
-                conn.Open();
-
-                using (var reader = cmd.ExecuteReader())
+                using (var conn = CreateConnection())
                 {
+                    Medlem medlem = new Medlem();
 
-                    var namnIndex = reader.GetOrdinal("Namn");
-                    var adressIndex = reader.GetOrdinal("Adress");
-                    var ortIndex = reader.GetOrdinal("Ort");
-                    var postnrIndex = reader.GetOrdinal("Postnr");
+                    var cmd = new SqlCommand("appSchema.usp_GetMembers", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    if (reader.Read())
+                    cmd.Parameters.Add("@MedlemID", SqlDbType.Int, 4).Value = id;
+
+                    conn.Open();
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        medlem = new Medlem
+
+                        var namnIndex = reader.GetOrdinal("Namn");
+                        var adressIndex = reader.GetOrdinal("Adress");
+                        var ortIndex = reader.GetOrdinal("Ort");
+                        var postnrIndex = reader.GetOrdinal("Postnr");
+
+                        if (reader.Read())
                         {
+                            medlem = new Medlem
+                            {
 
-                            Namn = reader.GetString(namnIndex),
-                            Adress = reader.GetString(adressIndex),
-                            Ort = reader.GetString(ortIndex),
-                            Postnr = reader.GetInt32(postnrIndex)
-                        };
+                                Namn = reader.GetString(namnIndex),
+                                Adress = reader.GetString(adressIndex),
+                                Ort = reader.GetString(ortIndex),
+                                Postnr = reader.GetInt32(postnrIndex)
+                            };
+                        }
                     }
-                }
 
-                return medlem;
+                    return medlem;
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
             }
         }
     }

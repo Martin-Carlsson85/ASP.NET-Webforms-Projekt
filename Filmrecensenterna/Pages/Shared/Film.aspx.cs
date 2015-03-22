@@ -11,6 +11,8 @@ namespace Filmrecensenterna.Pages
 {
     public partial class FilmView : System.Web.UI.Page
     {
+        private static Label label;
+
         private Service _service;
         private Service Service {
             get { return _service ?? (_service = new Service()); }
@@ -18,26 +20,65 @@ namespace Filmrecensenterna.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            label = (Label)Master.FindControl("RightMessage");
         }
 
         public IEnumerable<Film> Filmrecensionerna_GetData()
         {
-            return Service.GetFilms();
+            try
+            {
+                return Service.GetFilms();
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett fel inträffade vid hämtning utav filmer.");
+                return null;
+            }
         }
 
         public void Filmrecensionerna_InsertItem(Film toAdd)
         {
-            Service.AddFilm(toAdd);
+           // label = (Label)item.FindControl("RightMessage");
+
+            try
+            {
+                Service.AddFilm(toAdd);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle läggas till.");
+            }
+
         }
 
         public void Filmrecensionerna_DeleteItem(Film toDelete)
         {
-            Service.DeleteFilm(toDelete);
+            try
+            {
+                Service.DeleteFilm(toDelete);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle tas bort.");
+            }
+            
         }
 
         public void Filmrecensionerna_UpdateItem(Film toEdit)
         {
-            Service.EditFilm(toEdit);
+            try
+            {
+                Service.EditFilm(toEdit);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+            }
+        }
+
+        protected void FilmList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

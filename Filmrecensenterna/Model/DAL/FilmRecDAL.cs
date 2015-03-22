@@ -40,42 +40,50 @@ namespace Filmrecensenterna.Model.DAL
         //Läsa en post
         public IEnumerable<FilmRecension> GetMovieRes()
         {
-            using (var conn = CreateConnection())
+            try
             {
-                var recensioner = new List<FilmRecension>();
-
-                var cmd = new SqlCommand("appSchema.usp_GetMovieRew", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
+                using (var conn = CreateConnection())
                 {
-                    var filmIndex = reader.GetOrdinal("Film");
-                    var artalIndex = reader.GetOrdinal("Årtal");
-                    var recensionText = reader.GetOrdinal("Recension");
-                    var recensionID = reader.GetOrdinal("RecID");
-                    var filmID = reader.GetOrdinal("FilmID");
+                    var recensioner = new List<FilmRecension>();
 
+                    var cmd = new SqlCommand("appSchema.usp_GetMovieRew", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    while (reader.Read())
+                    conn.Open();
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        recensioner.Add(new FilmRecension(
-                        reader.GetInt32(recensionID),
-                        new Film
+                        var filmIndex = reader.GetOrdinal("Film");
+                        var artalIndex = reader.GetOrdinal("Årtal");
+                        var recensionText = reader.GetOrdinal("Recension");
+                        var recensionID = reader.GetOrdinal("RecID");
+                        var filmID = reader.GetOrdinal("FilmID");
+
+
+                        while (reader.Read())
                         {
-                            FilmID = reader.GetInt32(filmID),
-                            Filmnamn = reader.GetString(filmIndex),
-                            Årtal = reader.GetInt32(artalIndex),
-                        },
-                        new Recension
-                        {
-                            RecID = reader.GetInt32(recensionID),
-                            Recensionen = reader.GetString(recensionText)
-                        }));
+                            recensioner.Add(new FilmRecension(
+                            reader.GetInt32(recensionID),
+                            new Film
+                            {
+                                FilmID = reader.GetInt32(filmID),
+                                Filmnamn = reader.GetString(filmIndex),
+                                Årtal = reader.GetInt32(artalIndex),
+                            },
+                            new Recension
+                            {
+                                RecID = reader.GetInt32(recensionID),
+                                Recensionen = reader.GetString(recensionText)
+                            }));
+                        }
                     }
+                    recensioner.TrimExcess();
+                    return recensioner;
                 }
-                recensioner.TrimExcess();
-                return recensioner;
+            }
+            catch (Exception)
+            {
+                
+                throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
             }
         }
     }
