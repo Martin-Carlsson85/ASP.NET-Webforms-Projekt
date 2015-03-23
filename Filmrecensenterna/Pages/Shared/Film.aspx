@@ -10,7 +10,7 @@
             UpdateMethod="Filmrecensionerna_UpdateItem"
             DeleteMethod="Filmrecensionerna_DeleteItem"
             InsertItemPosition="FirstItem"
-            DataKeyNames="FilmID" OnSelectedIndexChanged="FilmList_SelectedIndexChanged">
+            DataKeyNames="FilmID">
             
             <LayoutTemplate>
 
@@ -38,7 +38,7 @@
                     <td >
                         <asp:Label ID="RightMessage" CssClass="RightMessage" runat="server" />
                         <asp:LinkButton runat="server" CommandName="Edit" Text="Ändra" CausesValidation="false" /> 
-                        <asp:LinkButton runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false" OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort filmen?\")", Item.FilmID) %>'/>
+                        <asp:LinkButton runat="server" CommandName="Delete" Text="Ta bort" CausesValidation="false" OnClientClick='<%# String.Format("return confirm(\"Vill du verkligen ta bort filmen {0}? \")", Item.Filmnamn) %>'/>
                    </td>
                     
                 </tr>

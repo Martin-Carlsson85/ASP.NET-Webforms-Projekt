@@ -110,9 +110,9 @@ namespace Filmrecensenterna.Model.DAL
         //Radera en post
         public void DeleteMovie(int FilmId)
         {
-            try
-            {
-                using (var con = CreateConnection())
+            //try
+            //{
+               using (var con = CreateConnection())
                 {
                     var cmd = new SqlCommand("appSchema.usp_DeleteMovie", con);
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -122,12 +122,12 @@ namespace Filmrecensenterna.Model.DAL
                     cmd.ExecuteNonQuery();
 
                 }
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
                 
-                throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
-            }
+            //    throw new ApplicationException("Ett fel uppstod i samband med uppkopplingen mot databasen.");
+            //}
         }
     }
 }

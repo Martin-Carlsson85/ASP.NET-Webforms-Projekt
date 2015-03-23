@@ -91,11 +91,11 @@ namespace Filmrecensenterna.Pages
             }
         }
 
-        public void Filmrecensionerna_DeleteItem(Model.BLL.Recension toDelete)
+        public void Filmrecensionerna_DeleteItem(int RecID) //Recension toDelete
         {
             try
             {
-                Service.DeleteRecension(toDelete);
+                Service.DeleteRecension(RecID); //toDelete
             }
             catch (Exception)
             {

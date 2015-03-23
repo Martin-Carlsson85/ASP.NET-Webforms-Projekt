@@ -10,7 +10,7 @@
             UpdateMethod="Filmrecensionerna_UpdateItem"
             DeleteMethod="Filmrecensionerna_DeleteItem"
             InsertItemPosition="FirstItem"
-            DataKeyNames="RecID" OnSelectedIndexChanged="Filmrecensenterna_SelectedIndexChanged">
+            DataKeyNames="RecID"> 
             
             <LayoutTemplate>
 

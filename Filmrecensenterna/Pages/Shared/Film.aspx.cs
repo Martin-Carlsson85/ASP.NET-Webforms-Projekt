@@ -51,16 +51,16 @@ namespace Filmrecensenterna.Pages
 
         }
 
-        public void Filmrecensionerna_DeleteItem(Film toDelete)
+        public void Filmrecensionerna_DeleteItem(int FilmID)
         {
-            try
-            {
-                Service.DeleteFilm(toDelete);
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle tas bort.");
-            }
+            //try
+            //{
+            Service.DeleteFilm(FilmID);
+            //}
+            //catch (Exception)
+            //{
+            //    ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle tas bort.");
+            //}
             
         }
 
@@ -74,11 +74,6 @@ namespace Filmrecensenterna.Pages
             {
                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
             }
-        }
-
-        protected void FilmList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

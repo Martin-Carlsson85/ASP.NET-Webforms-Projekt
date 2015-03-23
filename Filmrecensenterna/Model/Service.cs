@@ -43,26 +43,19 @@ namespace Filmrecensenterna.Model
         {
             return FilmDAL.GetMovies();
         }
-        public void DeleteRecension(Recension toDelete)
+        public void DeleteRecension(int toDelete)//Recension
         {
-            var validationContext = new ValidationContext(toDelete);
-            var validationResults = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(toDelete, validationContext, validationResults))
-            {
-                var ex = new ValidationException("Objektet klarade inte valideringen.");
-                ex.Data.Add("ValidationResults", validationResults);
-                throw ex;
-            }
+ 
 
-            if (toDelete.RecID == 0)
-            {
-                RecDAL.DeleteReview(toDelete.RecID);
-            }
-            else
-            {
-                RecDAL.DeleteReview(toDelete.RecID);
-            }
-            //RecDAL.DeleteReview(toDelete.RecID);
+            //if (toDelete.RecID == 0)
+            //{
+            //    RecDAL.DeleteReview(toDelete.RecID);
+            //}
+            //else
+            //{
+            //    RecDAL.DeleteReview(toDelete.RecID);
+            //}
+            RecDAL.DeleteReview(toDelete); //RecID
         }
 
         public void EditRecension(Recension toEdit)
@@ -76,15 +69,15 @@ namespace Filmrecensenterna.Model
                 throw ex;
             }
 
-            if (toEdit.RecID == 0)
-            {
-                RecDAL.UpdateReview(toEdit);
-            }
-            else
-            {
-                RecDAL.UpdateReview(toEdit);
-            }
-            //RecDAL.UpdateReview(toEdit);
+            //if (toEdit.RecID == 0)
+            //{
+            //    RecDAL.UpdateReview(toEdit);
+            //}
+            //else
+            //{
+            //    RecDAL.UpdateReview(toEdit);
+            //}
+            RecDAL.UpdateReview(toEdit);
         }
 
         public Medlem GetMedlem(int id)
@@ -104,15 +97,15 @@ namespace Filmrecensenterna.Model
                 throw ex;
             }
 
-            if (toAdd.RecID == 0)
-            {
-                RecDAL.AddReview(toAdd);
-            }
-            else
-            {
-                RecDAL.AddReview(toAdd);
-            }
-            //RecDAL.AddReview(toAdd);
+            //if (toAdd.RecID == 0)
+            //{
+            //    RecDAL.AddReview(toAdd);
+            //}
+            //else
+            //{
+            //    RecDAL.AddReview(toAdd);
+            //}
+            RecDAL.AddReview(toAdd);
         }
 
         public void AddFilm(Film toAdd)
@@ -126,36 +119,30 @@ namespace Filmrecensenterna.Model
                 throw ex;
             }
 
-            if (toAdd.FilmID == 0)
-            {
-                FilmDAL.AddMovie(toAdd);
-            }
-            else
-            {
-                FilmDAL.AddMovie(toAdd);
-            }
-            //FilmDAL.AddMovie(toAdd);
+            //if (toAdd.FilmID == 0)
+            //{
+            //    FilmDAL.AddMovie(toAdd);
+            //}
+            //else
+            //{
+            //    FilmDAL.AddMovie(toAdd);
+            //}
+            FilmDAL.AddMovie(toAdd);
         }
 
-        public void DeleteFilm(Film toDelete)
+        public void DeleteFilm(int toDelete)
         {
-            var validationContext = new ValidationContext(toDelete);
+            /*var validationContext = new ValidationContext(toDelete);
             var validationResults = new List<ValidationResult>();
             if (!Validator.TryValidateObject(toDelete, validationContext, validationResults))
             {
                 var ex = new ValidationException("Objektet klarade inte valideringen.");
                 ex.Data.Add("ValidationResults", validationResults);
                 throw ex;
-            }
+            }*/
 
-            if (toDelete.FilmID == 0)
-            {
-                FilmDAL.DeleteMovie(toDelete.FilmID);
-            }
-            else
-            {
-                FilmDAL.DeleteMovie(toDelete.FilmID);
-            }
+            FilmDAL.DeleteMovie(toDelete);
+
             //FilmDAL.DeleteMovie(toDelete.FilmID);
         }
         public void EditFilm(Film toEdit)
@@ -169,15 +156,15 @@ namespace Filmrecensenterna.Model
                 throw ex;
             }
 
-            if (toEdit.FilmID == 0)
-            {
-                FilmDAL.UpdateMovie(toEdit);
-            }
-            else
-            {
-                FilmDAL.UpdateMovie(toEdit);
-            }
-            //FilmDAL.UpdateMovie(toEdit);
+            //if (toEdit.FilmID == 0)
+            //{
+            //    FilmDAL.UpdateMovie(toEdit);
+            //}
+            //else
+            //{
+            //    FilmDAL.UpdateMovie(toEdit);
+            //}
+            FilmDAL.UpdateMovie(toEdit);
         }
     }
 }
