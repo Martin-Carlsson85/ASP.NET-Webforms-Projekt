@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="Pages\Shared\Recension.aspx" />
     <Content Include="Pages\Shared\Medlem.aspx" />
+    <Content Include="Style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

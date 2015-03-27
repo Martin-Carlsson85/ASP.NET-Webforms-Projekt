@@ -53,14 +53,14 @@ namespace Filmrecensenterna.Pages
 
         public void Filmrecensionerna_DeleteItem(int FilmID)
         {
-            //try
-            //{
+            try
+            {
             Service.DeleteFilm(FilmID);
-            //}
-            //catch (Exception)
-            //{
-            //    ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle tas bort.");
-            //}
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle tas bort.");
+            }
             
         }
 

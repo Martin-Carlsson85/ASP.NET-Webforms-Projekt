@@ -56,9 +56,7 @@
             </ItemTemplate>
             <EmptyDataTemplate>
                 <tr>
-                    <td>
-                        Rent could not be found.
-                    </td>
+                    
                 </tr>
             </EmptyDataTemplate>
             
