@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+      
+
     <asp:ListView ID="Medlemslist" runat="server"
         ItemType="Filmrecensenterna.Model.BLL.Medlem"
         SelectMethod="Medlemslist_GetData"

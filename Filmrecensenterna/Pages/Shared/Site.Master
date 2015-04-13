@@ -6,9 +6,18 @@
 <head runat="server">
     <title>Filmrecensenterna</title>
     <link href="../../Style.css" rel="stylesheet" />
+    <script src='<%= ResolveClientUrl("../../Scripts/Script.js") %>'></script>
 </head>
 <body>
     <form id="form1" runat="server">
+
+          
+                 <%-- PlaceHolder för rättmeddelande. --%>
+               <asp:PlaceHolder ID="confirmholder" runat="server" Visible="false">
+                   <asp:Label ID="confirmText" runat="server" Text="Label"></asp:Label>
+               <asp:Button ID="closeButton" runat="server" Text="Close"  CausesValidation="false" />
+                </asp:PlaceHolder>
+
     <div id="header">
         <h1>Recensionsida</h1>
         <asp:HyperLink ID="HyperLink1" runat="server" Text="Medlemmar" NavigateUrl="~/Pages/Shared/Medlem.aspx" />

@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Shared/Site.Master" AutoEventWireup="true" CodeBehind="Film.aspx.cs" Inherits="Filmrecensenterna.Pages.FilmView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     
+      <%-- PlaceHolder för rättmeddelande. --%>
+               <asp:PlaceHolder ID="confirmholder" runat="server" Visible="false">
+                   <asp:Label ID="confirmText" runat="server" Text="Label"></asp:Label>
+               <asp:Button ID="closeButton" runat="server" Text="Stäng" CausesValidation="false" />
+                </asp:PlaceHolder>
 
     <asp:ListView ID="FilmList" runat="server"
             

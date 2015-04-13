@@ -19,7 +19,13 @@ namespace Filmrecensenterna.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["confirmtab"] != null)
+            {
+                confirmholder.Visible = true;
+                confirmText.Text = Session["confirmtab"] as string;
+                Session.Remove("confirmtab");
+                
+            }
         }
 
         public IEnumerable<Model.BLL.Recension> Filmrecensionerna_GetData()
@@ -80,14 +86,20 @@ namespace Filmrecensenterna.Pages
 
         public void Filmrecensionerna_InsertItem(Model.BLL.Recension toAdd)
         {
-            try
+            if (ModelState.IsValid)
             {
-                Service.AddRecension(toAdd);
-            }
-            catch (Exception)
-            {
-                
-                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle läggas till.");
+
+                try
+                {
+                    Service.AddRecension(toAdd);
+                    Session["confirmtab"] = "Det lyckades!";
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception)
+                {
+
+                    ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle läggas till.");
+                }
             }
         }
 
@@ -106,14 +118,20 @@ namespace Filmrecensenterna.Pages
 
         public void Filmrecensionerna_UpdateItem(Model.BLL.Recension toEdit)
         {
-            try
+            if (ModelState.IsValid)
             {
-                Service.EditRecension(toEdit);
-            }
-            catch (Exception)
-            {
-                
-                 ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle uppdateras.");
+
+                try
+                {
+                    Service.EditRecension(toEdit);
+                    Session["confirmtab"] = "Det lyckades!";
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception)
+                {
+
+                    ModelState.AddModelError(String.Empty, "Ett fel inträffade när recensionen skulle uppdateras.");
+                }
             }
         }
 

@@ -20,7 +20,14 @@ namespace Filmrecensenterna.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            label = (Label)Master.FindControl("RightMessage");
+            //label = (Label)Master.FindControl("RightMessage");
+
+            if (Session["confirmtab"] != null)
+            {
+                confirmholder.Visible = true;
+                confirmText.Text = Session["confirmtab"] as string;
+                Session.Remove("confirmtab");
+            }
         }
 
         public IEnumerable<Film> Filmrecensionerna_GetData()
@@ -40,15 +47,19 @@ namespace Filmrecensenterna.Pages
         {
            // label = (Label)item.FindControl("RightMessage");
 
-            try
+            if (ModelState.IsValid)
             {
-                Service.AddFilm(toAdd);
+                try
+                {
+                    Service.AddFilm(toAdd);
+                    Session["confirmtab"] = "Det lyckades!";
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle läggas till.");
+                }
             }
-            catch (Exception)
-            {
-                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle läggas till.");
-            }
-
         }
 
         public void Filmrecensionerna_DeleteItem(int FilmID)
@@ -66,13 +77,18 @@ namespace Filmrecensenterna.Pages
 
         public void Filmrecensionerna_UpdateItem(Film toEdit)
         {
-            try
+            if (ModelState.IsValid)
             {
-                Service.EditFilm(toEdit);
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                try
+                {
+                    Service.EditFilm(toEdit);
+                    Session["confirmtab"] = "Det lyckades!";
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(String.Empty, "Ett fel inträffade när filmen skulle uppdateras.");
+                }
             }
         }
     }
