@@ -57,6 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Pages\Shared\Default.aspx" />
     <Content Include="Pages\Shared\Film.aspx" />
     <Content Include="Pages\Shared\Site.Master" />
     <None Include="Properties\PublishProfiles\MyProfile.pubxml" />
@@ -74,6 +76,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\RedirectHandler.cs" />
+    <Compile Include="App_s\RouteConfig.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Model\BLL\FilmRecension.cs" />
     <Compile Include="Model\BLL\Medlem.cs" />
     <Compile Include="Model\BLL\Film.cs" />
@@ -84,6 +91,13 @@
     <Compile Include="Model\DAL\MedlemDAL.cs" />
     <Compile Include="Model\DAL\RecensionDAL.cs" />
     <Compile Include="Model\Service.cs" />
+    <Compile Include="Pages\Shared\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Shared\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Shared\Film.aspx.cs">
       <DependentUpon>Film.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
