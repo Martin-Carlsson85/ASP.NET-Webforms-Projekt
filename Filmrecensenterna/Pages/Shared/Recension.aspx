@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Shared/Site.Master" AutoEventWireup="true" CodeBehind="Recension.aspx.cs" Inherits="Filmrecensenterna.Pages.Recension" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-    <%-- PlaceHolder för rättmeddelande. --%>
+   
                  <%-- PlaceHolder för rättmeddelande. --%>
                <asp:PlaceHolder ID="confirmholder" runat="server" Visible="false">
                    <asp:Label ID="confirmText" runat="server" Text="Label"></asp:Label>
@@ -80,7 +80,9 @@
 
                    <td>
                    </td>
-                   <td>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Du måste skriva en recension" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                  
+                    <td>
                        <asp:TextBox ID="TextBox1" runat="server"
                            TextMode="MultiLine"
                            MaxLength="150"
@@ -113,6 +115,7 @@
                     <td>
                        
                    </td>
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Du måste skriva en recension" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
                    <td>
                        <asp:TextBox ID="TextBox1" runat="server"
                            TextMode="MultiLine"

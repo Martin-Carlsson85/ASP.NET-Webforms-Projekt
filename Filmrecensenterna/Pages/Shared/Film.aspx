@@ -59,14 +59,20 @@
             
              <InsertItemTemplate>
                <tr>
+                   
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Du måste ange ett filmnamn" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
                     <td>
+                        
                         <asp:TextBox ID="TextBox1" runat="server"
                            TextMode="SingleLine"
                            MaxLength="30"
                            Text='<%# BindItem.Filmnamn %>'></asp:TextBox>
                     </td>
 
+                   <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Endast årtal mellan 1900-2014 accepteras" MinimumValue="1900" MaximumValue="2014" ControlToValidate="TextBox2"></asp:RangeValidator><br />
+                       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Du måste ange ett årtal" ControlToValidate="TextBox2"></asp:RequiredFieldValidator><br />
                    <td>
+                       
                        <asp:TextBox ID="TextBox2" runat="server"
                            TextMode="SingleLine"
                            MaxLength="4"
@@ -80,12 +86,17 @@
            </InsertItemTemplate>
         <EditItemTemplate>
                     <tr>
+
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Du måste ange ett filmnamn" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
                     <td>
                         <asp:TextBox ID="TextBox1" runat="server"
                            TextMode="SingleLine"
                            MaxLength="30"
                            Text='<%# BindItem.Filmnamn %>'></asp:TextBox>                        
                     </td>
+
+                         <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Endast årtal mellan 1900-2014 accepteras" MinimumValue="1900" MaximumValue="2014" ControlToValidate="TextBox2"></asp:RangeValidator>
+                       <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Du måste ange ett årtal" ControlToValidate="TextBox2"></asp:RequiredFieldValidator>
                     <td>
                        <asp:TextBox ID="TextBox2" runat="server"
                            TextMode="SingleLine"
